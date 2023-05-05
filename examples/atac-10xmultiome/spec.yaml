@@ -1,0 +1,157 @@
+!Assay
+name: 10xv3 Multiome
+doi: ''
+publication_date: ''
+description: ''
+modalities:
+- atac
+- rna
+lib_struct: ''
+assay_spec:
+- !Region
+  parent_id: null
+  region_id: atac
+  region_type: ATAC
+  name: atac
+  sequence_type: joined
+  sequence: NNNNNNNNNNNNNNNNXX
+  min_len: 116
+  max_len: 116
+  onlist: null
+  regions:
+  - !Region
+    parent_id: atac
+    region_id: atac_I2.fastq.gz
+    region_type: fastq
+    name: atac_I2.fastq.gz
+    sequence_type: joined
+    sequence: NNNNNNNNNNNNNNNN
+    min_len: 16
+    max_len: 16
+    onlist: null
+    regions:
+    - !Region
+      parent_id: atac_I2.fastq.gz
+      region_id: barcode
+      region_type: barcode
+      name: barcode
+      sequence_type: onlist
+      sequence: NNNNNNNNNNNNNNNN
+      min_len: 16
+      max_len: 16
+      onlist: !Onlist
+        filename: ATA-737K-arc-v1.txt
+        md5: 3f9fc0f6ef9d72540ab010d0b5348aa1
+      regions: null
+  - !Region
+    parent_id: atac
+    region_id: atac_rna_R1.fastq.gz
+    region_type: fastq
+    name: atac_rna_R1.fastq.gz
+    sequence_type: joined
+    sequence: X
+    min_len: 50
+    max_len: 50
+    onlist: null
+    regions:
+    - !Region
+      parent_id: atac_rna_R1.fastq.gz
+      region_id: gDNA-1
+      region_type: gDNA-1
+      name: gDNA-1
+      sequence_type: random
+      sequence: X
+      min_len: 50
+      max_len: 50
+      onlist: null
+      regions: null
+  - !Region
+    parent_id: atac
+    region_id: atac_rna_R2.fastq.gz
+    region_type: fastq
+    name: atac_rna_R2.fastq.gz
+    sequence_type: joined
+    sequence: X
+    min_len: 50
+    max_len: 50
+    onlist: null
+    regions:
+    - !Region
+      parent_id: atac_rna_R2.fastq.gz
+      region_id: gDNA-2
+      region_type: gDNA-2
+      name: gDNA-2
+      sequence_type: random
+      sequence: X
+      min_len: 50
+      max_len: 50
+      onlist: null
+      regions: null
+- !Region
+  parent_id: null
+  region_id: rna
+  region_type: RNA
+  name: rna
+  sequence_type: joined
+  sequence: NNNNNNNNNNNNNNNNNNNNNNNNNNNNX
+  min_len: 118
+  max_len: 118
+  onlist: null
+  regions:
+  - !Region
+    parent_id: rna
+    region_id: rna_R1.fastq.gz
+    region_type: fastq
+    name: rna_R1.fastq.gz
+    sequence_type: joined
+    sequence: NNNNNNNNNNNNNNNNNNNNNNNNNNNN
+    min_len: 28
+    max_len: 28
+    onlist: null
+    regions:
+    - !Region
+      parent_id: rna_R1.fastq.gz
+      region_id: barcode
+      region_type: barcode
+      name: barcode
+      sequence_type: onlist
+      sequence: NNNNNNNNNNNNNNNN
+      min_len: 16
+      max_len: 16
+      onlist: !Onlist
+        filename: RNA-737K-arc-v1.txt
+        md5: a88cd21e801ae6f9a7d9a48b67ccf693
+      regions: null
+    - !Region
+      parent_id: rna_R1.fastq.gz
+      region_id: umi
+      region_type: umi
+      name: umi
+      sequence_type: random
+      sequence: NNNNNNNNNNNN
+      min_len: 12
+      max_len: 12
+      onlist: null
+      regions: null
+  - !Region
+    parent_id: rna
+    region_id: rna_R2.fastq.gz
+    region_type: fastq
+    name: rna_R2.fastq.gz
+    sequence_type: joined
+    sequence: X
+    min_len: 90
+    max_len: 90
+    onlist: null
+    regions:
+    - !Region
+      parent_id: rna_R2.fastq.gz
+      region_id: cDNA
+      region_type: cDNA
+      name: cDNA
+      sequence_type: random
+      sequence: X
+      min_len: 90
+      max_len: 90
+      onlist: null
+      regions: null
