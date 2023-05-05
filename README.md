@@ -1,1 +1,1 @@
-# atlas 0.0.0
+# cellatlas 0.0.0

@@ -9,9 +9,9 @@ def read(path):
 long_description = read("README.md")
 
 setup(
-    name="atlas",
+    name="cellatlas",
     version="0.0.0",
-    url="https://github.com/cellatlas/atlas",
+    url="https://github.com/cellatlas/cellatlas",
     author="Sina Booeshaghi",
     author_email="sbooeshaghi@gmail.com",
     maintainer="Sina Booeshaghi",
@@ -27,7 +27,7 @@ setup(
     include_package_data=True,
     install_requires=read("requirements.txt").strip().split("\n"),
     entry_points={
-        "console_scripts": ["atlas=atlas.main:main"],
+        "console_scripts": ["cellatlas=cellatlas.main:main"],
     },
     classifiers=[
         "Environment :: Console",

@@ -3,7 +3,7 @@
 clean:
 	rm -rf build
 	rm -rf dist
-	rm -rf atlas.egg-info
+	rm -rf cellatlas.egg-info
 	rm -rf docs/_build
 	rm -rf docs/api
 	rm -rf .coverage
