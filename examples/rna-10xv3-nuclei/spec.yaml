@@ -1,0 +1,77 @@
+!Assay
+name: 10xv3 nuclei
+doi: ''
+publication_date: ''
+description: ''
+modalities:
+- rna
+lib_struct: ''
+assay_spec:
+- !Region
+  parent_id: null
+  region_id: rna
+  region_type: RNA
+  name: rna
+  sequence_type: joined
+  sequence: NNNNNNNNNNNNNNNNNNNNNNNNNNNNX
+  min_len: 118
+  max_len: 118
+  onlist: null
+  regions:
+  - !Region
+    parent_id: rna
+    region_id: R1.fastq.gz
+    region_type: fastq
+    name: R1.fastq.gz
+    sequence_type: joined
+    sequence: NNNNNNNNNNNNNNNNNNNNNNNNNNNN
+    min_len: 28
+    max_len: 28
+    onlist: null
+    regions:
+    - !Region
+      parent_id: R1.fastq.gz
+      region_id: barcode
+      region_type: barcode
+      name: barcode
+      sequence_type: onlist
+      sequence: NNNNNNNNNNNNNNNN
+      min_len: 16
+      max_len: 16
+      onlist: !Onlist
+        filename: 3M-february-2018.txt
+        md5: 3d36d0a4021fd292b265e2b5e72aaaf3
+      regions: null
+    - !Region
+      parent_id: R1.fastq.gz
+      region_id: umi
+      region_type: umi
+      name: umi
+      sequence_type: random
+      sequence: NNNNNNNNNNNN
+      min_len: 12
+      max_len: 12
+      onlist: null
+      regions: null
+  - !Region
+    parent_id: rna
+    region_id: R2.fastq.gz
+    region_type: fastq
+    name: R2.fastq.gz
+    sequence_type: joined
+    sequence: X
+    min_len: 90
+    max_len: 90
+    onlist: null
+    regions:
+    - !Region
+      parent_id: R2.fastq.gz
+      region_id: cDNA
+      region_type: cDNA
+      name: cDNA
+      sequence_type: random
+      sequence: X
+      min_len: 90
+      max_len: 90
+      onlist: null
+      regions: null
