@@ -1,0 +1,88 @@
+!Assay
+name: 10xv3 ATAC
+doi: ''
+publication_date: ''
+description: ''
+modalities:
+- atac
+lib_struct: ''
+assay_spec:
+- !Region
+  parent_id: null
+  region_id: atac
+  region_type: ATAC
+  name: atac
+  sequence_type: joined
+  sequence: NNNNNNNNNNNNNNNNXX
+  min_len: 116
+  max_len: 116
+  onlist: null
+  regions:
+  - !Region
+    parent_id: atac
+    region_id: I2.fastq.gz
+    region_type: fastq
+    name: I2.fastq.gz
+    sequence_type: joined
+    sequence: NNNNNNNNNNNNNNNN
+    min_len: 16
+    max_len: 16
+    onlist: null
+    regions:
+    - !Region
+      parent_id: I2.fastq.gz
+      region_id: barcode
+      region_type: barcode
+      name: barcode
+      sequence_type: onlist
+      sequence: NNNNNNNNNNNNNNNN
+      min_len: 16
+      max_len: 16
+      onlist: !Onlist
+        filename: ATA-737K-cratac-v1.txt
+        md5: ab645450cf30cc51077f6c030b665297
+      regions: null
+  - !Region
+    parent_id: atac
+    region_id: R1.fastq.gz
+    region_type: fastq
+    name: R1.fastq.gz
+    sequence_type: joined
+    sequence: X
+    min_len: 50
+    max_len: 50
+    onlist: null
+    regions:
+    - !Region
+      parent_id: R1.fastq.gz
+      region_id: gDNA-1
+      region_type: gDNA
+      name: gDNA-1
+      sequence_type: random
+      sequence: X
+      min_len: 50
+      max_len: 50
+      onlist: null
+      regions: null
+  - !Region
+    parent_id: atac
+    region_id: R2.fastq.gz
+    region_type: fastq
+    name: R2.fastq.gz
+    sequence_type: joined
+    sequence: X
+    min_len: 50
+    max_len: 50
+    onlist: null
+    regions:
+    - !Region
+      parent_id: R2.fastq.gz
+      region_id: gDNA-2
+      region_type: gDNA
+      name: gDNA-2
+      sequence_type: random
+      sequence: X
+      min_len: 50
+      max_len: 50
+      onlist: null
+      regions: null

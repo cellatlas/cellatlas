@@ -1,0 +1,1 @@
+https://s3-us-west-2.amazonaws.com/10x.files/samples/cell-atac/2.1.0/10k_pbmc_ATACv2_nextgem_Chromium_X/10k_pbmc_ATACv2_nextgem_Chromium_X_fastqs.tar
