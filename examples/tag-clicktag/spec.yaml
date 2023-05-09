@@ -67,7 +67,7 @@ assay_spec:
     - !Region
       parent_id: R2.fastq.gz
       region_id: tag
-      region_type: TAG
+      region_type: tag
       name: tag
       sequence_type: random
       sequence: X
