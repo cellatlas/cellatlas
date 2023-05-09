@@ -183,7 +183,7 @@ def build_kb_count_standard(fastqs, x_string, onlist, output):
         f"-g {os.path.join(output, 't2g.txt')}",
         f"-x {x_string}",
         f"-w {onlist}",
-        f"-o {os.path.join(output, 'output')}",
+        f"-o {output}",
         "--h5ad",
         "-t 2",
         " ".join(fastqs),
@@ -199,7 +199,7 @@ def build_kb_count_kite(fastqs, x_string, onlist, output):
     cmd.append(f"-g {os.path.join(output, 't2g.txt')}")
     cmd.append(f"-x {x_string}")
     cmd.append(f"-w {onlist}")
-    cmd.append(f"-o {os.path.join(output, 'output')}")
+    cmd.append(f"-o {output}")
     cmd.append("--h5ad")
     cmd.append("-t 2")
     cmd.append(" ".join(fastqs))
