@@ -4,14 +4,14 @@ doi: ''
 publication_date: ''
 description: ''
 modalities:
-- protein
+- tag
 lib_struct: ''
 assay_spec:
 - !Region
   parent_id: null
-  region_id: protein
-  region_type: PROTEIN
-  name: protein
+  region_id: tag
+  region_type: TAG
+  name: tag
   sequence_type: joined
   sequence: NNNNNNNNNNNNNNNNNNNNNNNNNNX
   min_len: 116
@@ -19,7 +19,7 @@ assay_spec:
   onlist: null
   regions:
   - !Region
-    parent_id: protein
+    parent_id: tag
     region_id: R1.fastq.gz
     region_type: fastq
     name: R1.fastq.gz
@@ -54,7 +54,7 @@ assay_spec:
       onlist: null
       regions: null
   - !Region
-    parent_id: protein
+    parent_id: tag
     region_id: R2.fastq.gz
     region_type: fastq
     name: R2.fastq.gz
@@ -66,9 +66,9 @@ assay_spec:
     regions:
     - !Region
       parent_id: R2.fastq.gz
-      region_id: protein
+      region_id: tag
       region_type: Protein
-      name: protein
+      name: tag
       sequence_type: random
       sequence: X
       min_len: 90

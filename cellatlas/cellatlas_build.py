@@ -101,6 +101,7 @@ def run_build(modality, fastqs, seqspec, fasta, gtf, feature_barcodes, output):
 
 def run_build_ref(modality, fastqs, fasta, gtf, feature_barcodes, output):
     REF = {
+        "TAG": build_kb_ref_kite,
         "PROTEIN": build_kb_ref_kite,
         "CRISPR": build_kb_ref_kite,
         "ATAC": build_kb_ref_snATAK,
@@ -119,6 +120,7 @@ def run_build_count(modality, fastqs, seqspec_fn, output):
     onlist = run_onlist(seqspec, modality, "barcode")
 
     COUNT = {
+        "TAG": build_kb_count_kite,
         "PROTEIN": build_kb_count_kite,
         "CRISPR": build_kb_count_kite,
         "ATAC": build_kb_count_snATAK,
