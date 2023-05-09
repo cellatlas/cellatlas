@@ -60,13 +60,13 @@ def setup_build_args(parser):
 
 
 def validate_build_args(parser, args):
-    fastqs = [os.path.abspath(f) for f in args.fastqs]
-    seqspec = os.path.abspath(args.s)
-    fasta = os.path.abspath(args.fa)
-    gtf = os.path.abspath(args.g)
-    feature_barcodes = os.path.abspath(args.fb)
+    fastqs = [f for f in args.fastqs]
+    seqspec = args.s
+    fasta = args.fa
+    gtf = args.g
+    feature_barcodes = args.fb
     modality = args.m
-    output = os.path.abspath(args.o)
+    output = args.o
 
     if not os.path.isdir(output):
         os.makedirs(output)
@@ -116,7 +116,7 @@ def run_build_count(modality, fastqs, seqspec_fn, output):
     x_string = run_index(
         seqspec, modality, [os.path.basename(i) for i in fastqs], fmt="kb"
     )
-    onlist = os.path.abspath(run_onlist(seqspec, modality, "barcode"))
+    onlist = run_onlist(seqspec, modality, "barcode")
 
     COUNT = {
         "PROTEIN": build_kb_count_kite,
