@@ -66,14 +66,14 @@ assay_spec:
       parent_id: R2.fastq.gz
       region_id: barcode-1
       region_type: barcode
-      name: barcode-1 (round 3 barcode)
+      name: barcode-1 (round 3 barcode, standard_bc)
       sequence_type: onlist
       sequence: NNNNNNNN
       min_len: 8
       max_len: 8
       onlist: !Onlist
         filename: barcode-1_onlist.txt
-        md5: 5c3b70034e9cef5de735dc9d4f3fdbde
+        md5: 1452e8ef104e6edf686fab8956172072
       regions: null
     - !Region
       parent_id: R2.fastq.gz
@@ -90,7 +90,7 @@ assay_spec:
       parent_id: R2.fastq.gz
       region_id: barcode-2
       region_type: barcode
-      name: barcode-2 (round 2 barcode)
+      name: barcode-2 (round 2 barcode, standard_bc)
       sequence_type: onlist
       sequence: NNNNNNNN
       min_len: 8
@@ -114,12 +114,12 @@ assay_spec:
       parent_id: R2.fastq.gz
       region_id: barcode-3
       region_type: barcode
-      name: barcode-3 (round 1 barcode)
+      name: barcode-3 (round 1 barcode, polyT_bc OR randomHex_bc)
       sequence_type: onlist
       sequence: NNNNNNNN
       min_len: 8
       max_len: 8
       onlist: !Onlist
         filename: barcode-3_onlist.txt
-        md5: 1452e8ef104e6edf686fab8956172072
+        md5: 5c3b70034e9cef5de735dc9d4f3fdbde
       regions: null
