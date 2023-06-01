@@ -226,7 +226,7 @@ def build_kb_count_kite(fastqs, x_string, onlist, output):
 def build_kb_count_snATAK(fastqs, x_string, onlist, output):
     # make technology string with seqspec
     # get whitelist from seqspec
-    cmd = build_kb_count_kite(fastqs, x_string, onlist, output)
+    cmd = build_kb_count_standard(fastqs, x_string, onlist, output)
     cmd.append(f"mkdir -p {os.path.join(output, 'counts_mult')}")
     cmd.append(
         f"bustools count -o {os.path.join(output, 'counts_mult/cells_x_genes')} -g {os.path.join(output, 't2g.txt')} -e {os.path.join(output, 'matrix.ec')} -t {os.path.join(output, 'transcripts.txt')} --genecounts --cm {os.path.join(output, 'output.unfiltered.bus')}"
