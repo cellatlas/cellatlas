@@ -1,0 +1,13 @@
+{
+	"n_targets": 0,
+	"n_bootstraps": 0,
+	"n_processed": 1000000,
+	"n_pseudoaligned": 901594,
+	"n_unique": 880545,
+	"p_pseudoaligned": 90.2,
+	"p_unique": 88.1,
+	"kallisto_version": "0.48.0",
+	"index_version": 0,
+	"start_time": "Thu Jun  1 04:52:26 2023",
+	"call": "/home/sina/bin/miniconda3/lib/python3.7/site-packages/kb_python/bins/linux/kallisto/kallisto bus -i out/index.idx -o out -x 2,0,16:-1,-1,-1:0,0,50,1,0,50 -t 2 fastqs/R1.fastq.gz fastqs/R2.fastq.gz fastqs/I2.fastq.gz"
+}
