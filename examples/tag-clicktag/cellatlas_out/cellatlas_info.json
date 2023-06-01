@@ -1,0 +1,29 @@
+{
+    "call": "/usr/local/bin/cellatlas build -o out -m rna -s spec.yaml -fa http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz -g http://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz -fb feature_barcodes.txt fastqs/R1.fastq.gz fastqs/R2.fastq.gz",
+    "start_time": "Thu Jun 01 12:00:29 2023 ",
+    "fastqs": [
+        {
+            "file": "fastqs/R1.fastq.gz",
+            "source": ""
+        },
+        {
+            "file": "fastqs/R2.fastq.gz",
+            "source": ""
+        }
+    ],
+    "seqspec": "spec.yaml",
+    "genome_fasta": "http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+    "genome_gtf": "http://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz",
+    "commands": [
+        {
+            "ref": [
+                "kb ref -i out/index.idx -g out/t2g.txt -f1 out/transcriptome.fa http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz http://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz"
+            ]
+        },
+        {
+            "count": [
+                "kb count -i out/index.idx -g out/t2g.txt -x 0,0,16:0,16,28:1,0,90 -w 3M-february-2018.txt -o out --h5ad -t 2 fastqs/R1.fastq.gz fastqs/R2.fastq.gz"
+            ]
+        }
+    ]
+}
