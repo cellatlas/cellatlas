@@ -42,7 +42,7 @@ assay_spec:
       min_len: 16
       max_len: 16
       onlist: !Onlist
-        filename: visum_onlist.txt
+        filename: visium_onlist.txt
         md5: d0ea5e4f6002258d75176b560977d025
       regions: null
     - !Region
