@@ -1,5 +1,8 @@
 !Assay
-name: 10xv3
+seqspec_version: 0.0.0
+assay: 10v3 RNA
+sequencer: Illumina
+name: 10xv3 RNA/Illumina
 doi: ''
 publication_date: ''
 description: ''

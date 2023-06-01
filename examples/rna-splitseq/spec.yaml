@@ -1,5 +1,8 @@
 !Assay
-name: SPLiT-seq
+seqspec_version: 0.0.0
+assay: SPLiT-seq
+sequencer: Illumina
+name: SPLiT-seq/Illumina
 doi: ''
 publication_date: ''
 description: ''

@@ -1,4 +1,7 @@
 !Assay
+seqspec_version: 0.0.0
+assay: 10v3 Multiome
+sequencer: Illumina
 name: 10xv3 Multiome
 doi: ''
 publication_date: ''
@@ -45,9 +48,9 @@ assay_spec:
       regions: null
   - !Region
     parent_id: atac
-    region_id: atac_rna_R1.fastq.gz
+    region_id: atac_R1.fastq.gz
     region_type: fastq
-    name: atac_rna_R1.fastq.gz
+    name: atac_R1.fastq.gz
     sequence_type: joined
     sequence: X
     min_len: 50
@@ -55,9 +58,9 @@ assay_spec:
     onlist: null
     regions:
     - !Region
-      parent_id: atac_rna_R1.fastq.gz
+      parent_id: atac_R1.fastq.gz
       region_id: gDNA-1
-      region_type: gDNA-1
+      region_type: gDNA
       name: gDNA-1
       sequence_type: random
       sequence: X
@@ -67,9 +70,9 @@ assay_spec:
       regions: null
   - !Region
     parent_id: atac
-    region_id: atac_rna_R2.fastq.gz
+    region_id: atac_R2.fastq.gz
     region_type: fastq
-    name: atac_rna_R2.fastq.gz
+    name: atac_R2.fastq.gz
     sequence_type: joined
     sequence: X
     min_len: 50
@@ -77,9 +80,9 @@ assay_spec:
     onlist: null
     regions:
     - !Region
-      parent_id: atac_rna_R2.fastq.gz
+      parent_id: atac_R2.fastq.gz
       region_id: gDNA-2
-      region_type: gDNA-2
+      region_type: gDNA
       name: gDNA-2
       sequence_type: random
       sequence: X

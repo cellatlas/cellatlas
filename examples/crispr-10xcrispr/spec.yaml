@@ -1,4 +1,7 @@
 !Assay
+seqspec_version: 0.0.0
+assay: 10v3 crispr
+sequencer: Illumina
 name: 10xv3 crispr
 doi: ''
 publication_date: ''

@@ -5,6 +5,7 @@ from datetime import datetime
 from seqspec.seqspec_onlist import run_onlist
 from seqspec.seqspec_index import run_index
 from seqspec.utils import load_spec
+from seqspec.seqspec_find import run_find_by_type
 
 
 def setup_build_args(parser):
@@ -77,7 +78,7 @@ def validate_build_args(parser, args):
 def run_build(modality, fastqs, seqspec, fasta, gtf, feature_barcodes, output):
     call_time = datetime.now().strftime("%a %b %d %H:%M:%S %Y %Z")
 
-    ref = run_build_ref(modality, fastqs, fasta, gtf, feature_barcodes, output)
+    ref = run_build_ref(modality, fastqs, seqspec, fasta, gtf, feature_barcodes, output)
     count = run_build_count(modality, fastqs, seqspec, output)
 
     cmds = [
@@ -99,7 +100,22 @@ def run_build(modality, fastqs, seqspec, fasta, gtf, feature_barcodes, output):
     return
 
 
-def run_build_ref(modality, fastqs, fasta, gtf, feature_barcodes, output):
+def run_build_ref(modality, fastqs, seqspec_fn, fasta, gtf, feature_barcodes, output):
+    spec = load_spec(seqspec_fn)
+    MOD2FEATURE = {
+        "TAG": "tags",
+        "PROTEIN": "tags",
+        "ATAC": "gDNA",
+        "RNA": "cDNA",
+        "CRISPR": "gRNA",
+    }
+
+    # search the modality, and the feature type associated with the modality to get the fastq file names from the region_id
+    rgns = run_find_by_type(spec, modality, MOD2FEATURE.get(modality.upper(), ""))
+    relevant_fqs = [rgn.parent_id for rgn in rgns]
+    # get the paths from fastqs that match relevant_fqs
+    fqs = [f for f in fastqs if os.path.basename(f) in relevant_fqs]
+    # add spec to ref build, find the fastq files that are gDNA then select those from fastqs parameter
     REF = {
         "TAG": build_kb_ref_kite,
         "PROTEIN": build_kb_ref_kite,
@@ -107,7 +123,7 @@ def run_build_ref(modality, fastqs, fasta, gtf, feature_barcodes, output):
         "ATAC": build_kb_ref_snATAK,
         "RNA": build_kb_ref_standard,
     }
-    ref = REF[modality.upper()](fastqs, fasta, gtf, feature_barcodes, output)
+    ref = REF[modality.upper()](fqs, fasta, gtf, feature_barcodes, output)
 
     return ref
 
@@ -152,13 +168,12 @@ def build_kb_ref_kite(fastqs, fasta, gtf, feature_barcodes, output):
 
 
 def build_kb_ref_snATAK(fastqs, fasta, gtf, feature_barcodes, output):
-    gDNA_1_path = ""  # use seqspec find with gdna region type
-    gDNA_2_path = ""
+    fqs = " ".join(fastqs)
 
     cmd = [
         f"minimap2 -d {os.path.join(output, 'ref.mmi')} {fasta}",
         f"gunzip {fasta} | fold -w 80 > {os.path.join(output, 'genome.fa')}",
-        f"minimap2 -o {os.path.join(output, 'genome.sam')} -a -x sr -t 32 {os.path.join(output, 'ref.mmi')} {gDNA_1_path} {gDNA_2_path}",
+        f"minimap2 -o {os.path.join(output, 'genome.sam')} -a -x sr -t 32 {os.path.join(output, 'ref.mmi')} {fqs}",
         f"samtools view -@ 8 -o {os.path.join(output, 'genome.u.bam')} -b genome.sam",
         f"samtools sort -@ 8 -o {os.path.join(output,'genome.bam')} -n -m 8G {os.path.join(output, 'genome.u.bam')}",
         f"Genrich -t {os.path.join(output,'genome.bam')} -o {os.path.join(output,'genome.bed')} -f {os.path.join(output,'genome_peaks.log')} -v",
