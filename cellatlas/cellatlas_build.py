@@ -172,7 +172,7 @@ def build_kb_ref_snATAK(fastqs, fasta, gtf, feature_barcodes, output):
 
     cmd = [
         f"minimap2 -d {os.path.join(output, 'ref.mmi')} {fasta}",
-        f"gunzip {fasta} | fold -w 80 > {os.path.join(output, 'genome.fa')}",
+        f"zcat {fasta} | fold -w 80 > {os.path.join(output, 'genome.fa')}",
         f"minimap2 -o {os.path.join(output, 'genome.sam')} -a -x sr -t 32 {os.path.join(output, 'ref.mmi')} {fqs}",
         f"samtools view -@ 8 -o {os.path.join(output, 'genome.u.bam')} -b {os.path.join(output, 'genome.sam')}",
         f"samtools sort -@ 8 -o {os.path.join(output,'genome.bam')} -n -m 8G {os.path.join(output, 'genome.u.bam')}",
