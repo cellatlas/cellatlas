@@ -1,0 +1,40 @@
+{
+    "workdir": "/content",
+    "version": "0.27.3",
+    "kallisto": {
+        "path": "/usr/local/lib/python3.10/dist-packages/kb_python/bins/linux/kallisto/kallisto",
+        "version": "0.48.0"
+    },
+    "bustools": {
+        "path": "/usr/local/lib/python3.10/dist-packages/kb_python/bins/linux/bustools/bustools",
+        "version": "0.41.0"
+    },
+    "start_time": "2023-06-01T11:51:13.094869",
+    "end_time": "2023-06-01T11:52:59.054938",
+    "elapsed": 105.960069,
+    "call": "/usr/local/bin/kb count -i out/index.idx -g out/t2g.txt -x 0,0,16:0,16,28:1,0,90 -w 3M-february-2018.txt -o out --h5ad -t 2 fastqs/R1.fastq.gz fastqs/R2.fastq.gz",
+    "commands": [
+        "kallisto bus -i out/index.idx -o out -x 0,0,16:0,16,28:1,0,90 -t 2 fastqs/R1.fastq.gz fastqs/R2.fastq.gz",
+        "bustools inspect out/output.bus",
+        "bustools sort -o out/tmp/output.s.bus -T out/tmp -t 2 -m 4G out/output.bus",
+        "bustools inspect out/tmp/output.s.bus",
+        "bustools inspect -o out/inspect.json -w 3M-february-2018.txt out/tmp/output.s.bus",
+        "bustools correct -o out/tmp/output.s.c.bus -w 3M-february-2018.txt out/tmp/output.s.bus",
+        "bustools inspect out/tmp/output.s.c.bus",
+        "bustools sort -o out/output.unfiltered.bus -T out/tmp -t 2 -m 4G out/tmp/output.s.c.bus",
+        "bustools inspect out/output.unfiltered.bus",
+        "bustools count -o out/counts_unfiltered/cells_x_genes -g out/t2g.txt -e out/matrix.ec -t out/transcripts.txt --genecounts out/output.unfiltered.bus"
+    ],
+    "runtimes": [
+        61.49185085296631,
+        1.2197887897491455,
+        5.5310516357421875,
+        1.1021335124969482,
+        6.012153625488281,
+        15.43778371810913,
+        1.1018083095550537,
+        4.109169960021973,
+        1.1025590896606445,
+        4.909420967102051
+    ]
+}
