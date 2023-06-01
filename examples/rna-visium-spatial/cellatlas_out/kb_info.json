@@ -1,0 +1,36 @@
+{
+    "workdir": "/content",
+    "version": "0.27.3",
+    "kallisto": {
+        "path": "/usr/local/lib/python3.10/dist-packages/kb_python/bins/linux/kallisto/kallisto",
+        "version": "0.48.0"
+    },
+    "bustools": {
+        "path": "/usr/local/lib/python3.10/dist-packages/kb_python/bins/linux/bustools/bustools",
+        "version": "0.41.0"
+    },
+    "start_time": "2023-06-01T08:58:49.786182",
+    "end_time": "2023-06-01T08:59:22.496017",
+    "elapsed": 32.709835,
+    "call": "/usr/local/bin/kb count -i out/index.idx -g out/t2g.txt -x 0,0,16:0,16,28:1,0,90 -w visum_onlist.txt -o out --h5ad -t 2 fastqs/R1.fastq.gz fastqs/R2.fastq.gz",
+    "commands": [
+        "bustools sort -o out/tmp/output.s.bus -T out/tmp -t 2 -m 4G out/output.bus",
+        "bustools inspect out/tmp/output.s.bus",
+        "bustools inspect -o out/inspect.json -w visum_onlist.txt out/tmp/output.s.bus",
+        "bustools correct -o out/tmp/output.s.c.bus -w visum_onlist.txt out/tmp/output.s.bus",
+        "bustools inspect out/tmp/output.s.c.bus",
+        "bustools sort -o out/output.unfiltered.bus -T out/tmp -t 2 -m 4G out/tmp/output.s.c.bus",
+        "bustools inspect out/output.unfiltered.bus",
+        "bustools count -o out/counts_unfiltered/cells_x_genes -g out/t2g.txt -e out/matrix.ec -t out/transcripts.txt --genecounts out/output.unfiltered.bus"
+    ],
+    "runtimes": [
+        9.220731973648071,
+        1.9045672416687012,
+        1.9039218425750732,
+        1.2026629447937012,
+        2.007617235183716,
+        5.018920183181763,
+        1.904158115386963,
+        3.6092567443847656
+    ]
+}
