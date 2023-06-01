@@ -181,7 +181,7 @@ def build_kb_ref_snATAK(fastqs, fasta, gtf, feature_barcodes, output):
         f"bedtools getfasta -fi {os.path.join(output, 'genome.fa')} -bed {os.path.join(output, 'peaks.bed')} -fo {os.path.join(output, 'peaks.fa')}",
         f"cat {os.path.join(output, 'peaks.fa')} | awk '{{if($1~/>/)print $1\"\t\"$1\"\t\"$1}}' > {os.path.join(output, 't2g.txt')}",
         f"sed -i 's/>//g' {os.path.join(output, 't2g.txt')}",
-        f"kallisto index -i {os.path.join(output, 'peaks.idx')} {os.path.join(output, 'peaks.fa')}",
+        f"kallisto index -i {os.path.join(output, 'index.idx')} {os.path.join(output, 'peaks.fa')}",
     ]
     # cmd = ["kb ref --workflow kite"]
     # cmd.append(f"-i {os.path.join(output, 'index.idx')}")
