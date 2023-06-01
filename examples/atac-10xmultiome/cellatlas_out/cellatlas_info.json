@@ -1,0 +1,45 @@
+{
+    "call": "/home/sina/bin/miniconda3/bin/cellatlas build -o out -m atac -s spec.yaml -fa Mus_musculus.GRCm39.dna.primary_assembly.fa.gz -g Mus_musculus.GRCm39.109.gtf.gz fastqs/atac_R1.fastq.gz fastqs/atac_R2.fastq.gz fastqs/atac_I2.fastq.gz",
+    "start_time": "Thu Jun 01 02:52:11 2023 ",
+    "fastqs": [
+        {
+            "file": "fastqs/atac_R1.fastq.gz",
+            "source": ""
+        },
+        {
+            "file": "fastqs/atac_R2.fastq.gz",
+            "source": ""
+        },
+        {
+            "file": "fastqs/atac_I2.fastq.gz",
+            "source": ""
+        }
+    ],
+    "seqspec": "spec.yaml",
+    "genome_fasta": "Mus_musculus.GRCm39.dna.primary_assembly.fa.gz",
+    "genome_gtf": "Mus_musculus.GRCm39.109.gtf.gz",
+    "commands": [
+        {
+            "ref": [
+                "minimap2 -d out/ref.mmi Mus_musculus.GRCm39.dna.primary_assembly.fa.gz",
+                "zcat Mus_musculus.GRCm39.dna.primary_assembly.fa.gz | fold -w 80 > out/genome.fa",
+                "minimap2 -o out/genome.sam -a -x sr -t 32 out/ref.mmi fastqs/atac_R1.fastq.gz fastqs/atac_R2.fastq.gz",
+                "samtools view -@ 8 -o out/genome.u.bam -b out/genome.sam",
+                "samtools sort -@ 8 -o out/genome.bam -n -m 8G out/genome.u.bam",
+                "Genrich -t out/genome.bam -o out/genome.bed -f out/genome_peaks.log -v",
+                "cat out/genome.bed | bedtools sort | bedtools merge > out/peaks.bed",
+                "bedtools getfasta -fi out/genome.fa -bed out/peaks.bed -fo out/peaks.fa",
+                "cat out/peaks.fa | awk '{if($1~/>/)print $1\"\t\"$1\"\t\"$1}' > out/t2g.txt",
+                "sed -i 's/>//g' out/t2g.txt",
+                "kallisto index -i out/index.idx out/peaks.fa"
+            ]
+        },
+        {
+            "count": [
+                "kb count -i out/index.idx -g out/t2g.txt -x 2,8,24:-1,-1,-1:0,0,50,1,0,50 -w ATA-737K-arc-v1.txt -o out --h5ad -t 2 fastqs/atac_R1.fastq.gz fastqs/atac_R2.fastq.gz fastqs/atac_I2.fastq.gz",
+                "mkdir -p out/counts_mult",
+                "bustools count -o out/counts_mult/cells_x_genes -g out/t2g.txt -e out/matrix.ec -t out/transcripts.txt --genecounts --cm out/output.unfiltered.bus"
+            ]
+        }
+    ]
+}
