@@ -35,6 +35,17 @@ assay_spec:
     regions:
     - !Region
       parent_id: atac_I2.fastq.gz
+      region_id: bc-linker
+      region_type: linker
+      name: bc-linker
+      sequence_type: fixed
+      sequence: CAGACGCG
+      min_len: 8
+      max_len: 8
+      onlist: null
+      regions: null
+    - !Region
+      parent_id: atac_I2.fastq.gz
       region_id: barcode
       region_type: barcode
       name: barcode
