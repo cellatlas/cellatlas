@@ -134,6 +134,8 @@ def run_build_count(modality, fastqs, seqspec_fn, output):
         seqspec, modality, [os.path.basename(i) for i in fastqs], fmt="kb"
     )
     onlist = run_onlist(seqspec, modality, "barcode")
+    # get onlist path relative to seqspec_fn path
+    onlist = os.path.relpath(onlist, os.path.dirname(seqspec_fn))
 
     COUNT = {
         "TAG": build_kb_count_kite,
