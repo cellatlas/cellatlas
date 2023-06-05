@@ -9,32 +9,32 @@
         "path": "/usr/local/lib/python3.10/dist-packages/kb_python/bins/linux/bustools/bustools",
         "version": "0.41.0"
     },
-    "start_time": "2023-06-01T12:40:44.288862",
-    "end_time": "2023-06-01T12:42:23.191193",
-    "elapsed": 98.902331,
-    "call": "/usr/local/bin/kb count -i out/index.idx -g out/t2g.txt -x 0,0,16:0,16,28:1,0,90 -w 3M-february-2018.txt -o out --h5ad -t 2 fastqs/R1.fastq.gz fastqs/R2.fastq.gz",
+    "start_time": "2023-06-05T17:46:31.142620",
+    "end_time": "2023-06-05T17:47:08.659088",
+    "elapsed": 37.516468,
+    "call": "/usr/local/bin/kb count --workflow kite -i out/index.idx -g out/t2g.txt -x 0,0,16:0,16,26:1,0,90 -w 737K-august-2016.txt -o out --h5ad -t 2 fastqs/R1.fastq.gz fastqs/R2.fastq.gz",
     "commands": [
-        "kallisto bus -i out/index.idx -o out -x 0,0,16:0,16,28:1,0,90 -t 2 fastqs/R1.fastq.gz fastqs/R2.fastq.gz",
+        "kallisto bus -i out/index.idx -o out -x 0,0,16:0,16,26:1,0,90 -t 2 fastqs/R1.fastq.gz fastqs/R2.fastq.gz",
         "bustools inspect out/output.bus",
         "bustools sort -o out/tmp/output.s.bus -T out/tmp -t 2 -m 4G out/output.bus",
         "bustools inspect out/tmp/output.s.bus",
-        "bustools inspect -o out/inspect.json -w 3M-february-2018.txt out/tmp/output.s.bus",
-        "bustools correct -o out/tmp/output.s.c.bus -w 3M-february-2018.txt out/tmp/output.s.bus",
+        "bustools inspect -o out/inspect.json -w 737K-august-2016.txt out/tmp/output.s.bus",
+        "bustools correct -o out/tmp/output.s.c.bus -w 737K-august-2016.txt out/tmp/output.s.bus",
         "bustools inspect out/tmp/output.s.c.bus",
         "bustools sort -o out/output.unfiltered.bus -T out/tmp -t 2 -m 4G out/tmp/output.s.c.bus",
         "bustools inspect out/output.unfiltered.bus",
-        "bustools count -o out/counts_unfiltered/cells_x_genes -g out/t2g.txt -e out/matrix.ec -t out/transcripts.txt --genecounts out/output.unfiltered.bus"
+        "bustools count -o out/counts_unfiltered/cells_x_features -g out/t2g.txt -e out/matrix.ec -t out/transcripts.txt --genecounts out/output.unfiltered.bus"
     ],
     "runtimes": [
-        52.85338068008423,
-        1.5024440288543701,
-        4.51170802116394,
-        1.5031754970550537,
-        6.214731216430664,
-        15.047736406326294,
-        1.4031634330749512,
-        4.115109920501709,
-        1.5032756328582764,
-        5.9123241901397705
+        10.262736558914185,
+        1.5031743049621582,
+        8.67458963394165,
+        1.5101892948150635,
+        2.205026149749756,
+        2.204822540283203,
+        1.403984546661377,
+        4.321446657180786,
+        1.5160064697265625,
+        1.202327013015747
     ]
 }
