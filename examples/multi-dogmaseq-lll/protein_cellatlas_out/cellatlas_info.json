@@ -1,0 +1,29 @@
+{
+  "call": "/Users/sinabooeshaghi/.pyenv/versions/3.9.5/bin/cellatlas build -o protein_cellatlas_out -m protein -s spec.yaml -fa http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz -g http://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz -fb protein_feature_barcodes.txt fastqs/protein_R1_SRR18677632.fastq.gz fastqs/protein_R2_SRR18677632.fastq.gz",
+  "start_time": "Fri Jun 09 22:42:22 2023 ",
+  "fastqs": [
+    {
+      "file": "fastqs/protein_R1_SRR18677632.fastq.gz",
+      "source": ""
+    },
+    {
+      "file": "fastqs/protein_R2_SRR18677632.fastq.gz",
+      "source": ""
+    }
+  ],
+  "seqspec": "spec.yaml",
+  "genome_fasta": "http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+  "genome_gtf": "http://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz",
+  "commands": [
+    {
+      "ref": [
+        "kb ref --workflow kite -i protein_cellatlas_out/index.idx -g protein_cellatlas_out/t2g.txt -f1 protein_cellatlas_out/transcriptome.fa protein_feature_barcodes.txt"
+      ]
+    },
+    {
+      "count": [
+        "kb count --workflow kite -i protein_cellatlas_out/index.idx -g protein_cellatlas_out/t2g.txt -x 0,0,16:0,16,28:1,0,15 -w RNA-737K-arc-v1.txt -o protein_cellatlas_out --h5ad -t 2 fastqs/protein_R1_SRR18677632.fastq.gz fastqs/protein_R2_SRR18677632.fastq.gz"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "call": "/Users/sinabooeshaghi/.pyenv/versions/3.9.5/bin/cellatlas build -o rna_cellatlas_out -m rna -s spec.yaml -fa http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz -g http://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz fastqs/rna_R1_SRR18677629.fastq.gz fastqs/rna_R2_SRR18677629.fastq.gz",
+  "start_time": "Fri Jun 09 22:43:09 2023 ",
+  "fastqs": [
+    {
+      "file": "fastqs/rna_R1_SRR18677629.fastq.gz",
+      "source": ""
+    },
+    {
+      "file": "fastqs/rna_R2_SRR18677629.fastq.gz",
+      "source": ""
+    }
+  ],
+  "seqspec": "spec.yaml",
+  "genome_fasta": "http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+  "genome_gtf": "http://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz",
+  "commands": [
+    {
+      "ref": [
+        "kb ref -i rna_cellatlas_out/index.idx -g rna_cellatlas_out/t2g.txt -f1 rna_cellatlas_out/transcriptome.fa http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz http://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz"
+      ]
+    },
+    {
+      "count": [
+        "kb count -i rna_cellatlas_out/index.idx -g rna_cellatlas_out/t2g.txt -x 0,0,16:0,16,28:1,0,102 -w RNA-737K-arc-v1.txt -o rna_cellatlas_out --h5ad -t 2 fastqs/rna_R1_SRR18677629.fastq.gz fastqs/rna_R2_SRR18677629.fastq.gz"
+      ]
+    }
+  ]
+}

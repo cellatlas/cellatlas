@@ -1,0 +1,45 @@
+{
+  "call": "/Users/sinabooeshaghi/.pyenv/versions/3.9.5/bin/cellatlas build -o atac_cellatlas_out -m atac -s spec.yaml -fa http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz -g http://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz fastqs/atac_R1_SRR18677633.fastq.gz fastqs/atac_R2_SRR18677633.fastq.gz fastqs/atac_R3_SRR18677633.fastq.gz",
+  "start_time": "Fri Jun 09 22:43:53 2023 ",
+  "fastqs": [
+    {
+      "file": "fastqs/atac_R1_SRR18677633.fastq.gz",
+      "source": ""
+    },
+    {
+      "file": "fastqs/atac_R2_SRR18677633.fastq.gz",
+      "source": ""
+    },
+    {
+      "file": "fastqs/atac_R3_SRR18677633.fastq.gz",
+      "source": ""
+    }
+  ],
+  "seqspec": "spec.yaml",
+  "genome_fasta": "http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+  "genome_gtf": "http://ftp.ensembl.org/pub/release-109/gtf/homo_sapiens/Homo_sapiens.GRCh38.109.gtf.gz",
+  "commands": [
+    {
+      "ref": [
+        "minimap2 -d atac_cellatlas_out/ref.mmi http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+        "zcat http://ftp.ensembl.org/pub/release-109/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz | fold -w 80 > atac_cellatlas_out/genome.fa",
+        "minimap2 -o atac_cellatlas_out/genome.sam -a -x sr -t 32 atac_cellatlas_out/ref.mmi ",
+        "samtools view -@ 8 -o atac_cellatlas_out/genome.u.bam -b atac_cellatlas_out/genome.sam",
+        "samtools sort -@ 8 -o atac_cellatlas_out/genome.bam -n -m 8G atac_cellatlas_out/genome.u.bam",
+        "Genrich -t atac_cellatlas_out/genome.bam -o atac_cellatlas_out/genome.bed -f atac_cellatlas_out/genome_peaks.log -v",
+        "cat atac_cellatlas_out/genome.bed | bedtools sort | bedtools merge > atac_cellatlas_out/peaks.bed",
+        "bedtools getfasta -fi atac_cellatlas_out/genome.fa -bed atac_cellatlas_out/peaks.bed -fo atac_cellatlas_out/peaks.fa",
+        "cat atac_cellatlas_out/peaks.fa | awk '{if($1~/>/)print $1\"\t\"$1\"\t\"$1}' > atac_cellatlas_out/t2g.txt",
+        "sed -i 's/>//g' atac_cellatlas_out/t2g.txt",
+        "kallisto index -i atac_cellatlas_out/index.idx atac_cellatlas_out/peaks.fa"
+      ]
+    },
+    {
+      "count": [
+        "kb count -i atac_cellatlas_out/index.idx -g atac_cellatlas_out/t2g.txt -x 1,0,16:-1,-1,-1:0,0,52,2,0,52 -w ATA-737K-arc-v1.txt -o atac_cellatlas_out --h5ad -t 2 fastqs/atac_R1_SRR18677633.fastq.gz fastqs/atac_R2_SRR18677633.fastq.gz fastqs/atac_R3_SRR18677633.fastq.gz",
+        "mkdir -p atac_cellatlas_out/counts_mult",
+        "bustools count -o atac_cellatlas_out/counts_mult/cells_x_genes -g atac_cellatlas_out/t2g.txt -e atac_cellatlas_out/matrix.ec -t atac_cellatlas_out/transcripts.txt --genecounts --cm atac_cellatlas_out/output.unfiltered.bus"
+      ]
+    }
+  ]
+}
