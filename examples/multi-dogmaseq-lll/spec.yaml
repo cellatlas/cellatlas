@@ -82,7 +82,7 @@ assay_spec:
       max_len: 15
       onlist: !Onlist
         filename: protein_feature_barcodes.txt
-        md5: 4a180c6293a26c79b84e6bc278c8520e
+        md5: b5920c1fc1d22927607c31c96f5cf03e
       regions: null
       parent_id: protein_R2_SRR18677632.fastq.gz
     parent_id: protein
