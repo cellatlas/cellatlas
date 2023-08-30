@@ -87,16 +87,16 @@ def validate_build_args(parser, args):
     print(seqspecs)
 
     # Case 1, O,M,S: (1, 1, 1)
-    if len(set(modalities)) == 1 & len(outputs) == 1 & len(seqspecs) == 1:
+    if len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspecs) == 1:
         run_build = run_build_independent
     # Case 2, O,M,S: (>1, >1, 1)
-    elif len(set(modalities)) == 1 & len(outputs) > 1 & len(seqspecs) == 1:
+    elif len(set(modalities)) == 1 and len(outputs) > 1 and len(seqspecs) == 1:
         run_build = run_build_independent
     # Case 2, O,M,S: (1, >1, >1)
-    elif len(set(modalities)) == 1 & len(outputs) == 1 & len(seqspecs) > 1:
+    elif len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspecs) > 1:
         run_build = run_build_independent
     # Case 2, O,M,S: (1, 1, >1)
-    elif len(set(modalities)) == 1 & len(outputs) == 1 & len(seqspecs) > 1:
+    elif len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspecs) > 1:
         run_build = run_build_joint
     else:
         raise Exception("Invalid input.")
@@ -124,12 +124,12 @@ def run_build_independent(
             modalities[0], fastqs, seqspecs[0], fasta, gtf, feature_barcodes, outputs[0]
         )
     # Case 2, O,M,S: (>1, >1, 1)
-    elif len(set(modalities)) == len(outputs) > 1 & len(seqspecs) == 1:
+    elif len(set(modalities)) == len(outputs) > 1 and len(seqspecs) == 1:
         return run_build_independent_multiple_mm(
             modalities, fastqs, seqspecs[0], fasta, gtf, feature_barcodes, outputs
         )
     # Case 2, O,M,S: (1, >1, >1)
-    elif len(set(modalities)) == 1 & len(outputs) == len(seqspecs) > 1:
+    elif len(set(modalities)) == 1 and len(outputs) == len(seqspecs) > 1:
         return run_build_independent_multiple_sm(
             modalities[0], fastqs, seqspecs, fasta, gtf, feature_barcodes, outputs
         )
