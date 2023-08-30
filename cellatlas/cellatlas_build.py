@@ -292,7 +292,7 @@ def run_build_ref_joint(
         # We want all of the fastq files that are relevant to the modality and that are provided
         relevant_fqs = [rgn.parent_id for rgn in ss_rgns]
         # get the paths from fastqs that match relevant_fqs
-        fqs += [f for f in fastqs if os.path.basename(f) in relevant_fqs]
+        fqs.append([f for f in fastqs if os.path.basename(f) in relevant_fqs])
 
     ref = REF[modality.upper()](fqs, fasta, gtf, feature_barcodes, output)
 
@@ -345,28 +345,25 @@ def run_build_count(modality, fastqs, seqspec_fn, output):
 
 
 # this needs to be fixed
-def run_build_count_joint(modality, fastqs, seqspec_fns, output):
+def run_build_count_joint(
+    modality: str, fastqs: List[str], seqspec_fns: List[str], output: str
+):
     # For now assume that the technology strings match
     # In the future TODO check that the technology strings match
     # For now assume that the onlist files match
     # In the future TODO check that the onlist files match
 
     x_strings = []
-    joined_fastqs = []
     for seqspec_fn in seqspec_fns:
         seqspec = load_spec(seqspec_fn)
-        # search the modality, and the feature type associated with the modality to get the fastq file names from the region_id
-        rgns = run_find_by_type(
-            seqspec, modality, MOD2FEATURE.get(modality.upper(), "")
+        found = region_ids_in_spec(
+            seqspec, modality, [os.path.basename(i) for i in fastqs]
         )
-        relevant_fqs = [rgn.parent_id for rgn in rgns]
-        # get the paths from fastqs that match relevant_fqs
-        fqs = [f for f in fastqs if os.path.basename(f) in relevant_fqs]
-        print(fqs)
+
         print(modality)
-        x_strings += [run_index(seqspec, modality, relevant_fqs, fmt="kb")]
+        x_strings += [run_index(seqspec, modality, found, fmt="kb")]
         print(x_strings)
-        joined_fastqs += fqs
+        # joined_fastqs += fqs
 
     x_string = x_strings[0]  # assumes the technology strings are the same
 
@@ -385,7 +382,7 @@ def run_build_count_joint(modality, fastqs, seqspec_fns, output):
         "RNA": build_kb_count_standard,
     }
 
-    count = COUNT[modality.upper()](joined_fastqs, x_string, onlist, output)
+    count = COUNT[modality.upper()](fastqs, x_string, onlist, output)
 
     return count
 
@@ -400,7 +397,9 @@ def build_kb_ref_standard(fastqs, fasta, gtf, feature_barcodes, output):
     return [" ".join(cmd)]
 
 
-def build_kb_ref_standard_joint(fastqs, fasta, gtf, feature_barcodes, output):
+def build_kb_ref_standard_joint(
+    fastqs: List[List[str]], fasta, gtf, feature_barcodes, output
+):
     cmd = ["kb ref"]
     cmd.append(f"-i {os.path.join(output, 'index.idx')}")
     cmd.append(f"-g {os.path.join(output, 't2g.txt')}")
@@ -419,7 +418,9 @@ def build_kb_ref_kite(fastqs, fasta, gtf, feature_barcodes, output):
     return [" ".join(cmd)]
 
 
-def build_kb_ref_kite_joint(fastqs, asta, gtf, feature_barcodes, output):
+def build_kb_ref_kite_joint(
+    fastqs: List[List[str]], asta, gtf, feature_barcodes, output
+):
     cmd = ["kb ref --workflow kite"]
     cmd.append(f"-i {os.path.join(output, 'index.idx')}")
     cmd.append(f"-g {os.path.join(output, 't2g.txt')}")
@@ -451,7 +452,9 @@ def build_kb_ref_snATAK(fastqs, fasta, gtf, feature_barcodes, output):
     return cmd
 
 
-def build_kb_ref_snATAK_joint(fastqs, fasta, gtf, feature_barcodes, output):
+def build_kb_ref_snATAK_joint(
+    fastqs: List[List[str]], fasta, gtf, feature_barcodes, output
+):
     # build minimap ref
     cmd = [f"minimap2 -d {os.path.join(output, 'ref.mmi')} {fasta}"]
 
