@@ -82,9 +82,6 @@ def validate_build_args(parser, args):
     run_build = run_build_independent
 
     len(set(fastqs)) == len(fastqs) or parser.error("FASTQs must be unique")
-    print(outputs)
-    print(modalities)
-    print(seqspecs)
 
     # Case 1, O,M,S: (1, 1, 1)
     if len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspecs) == 1:
@@ -184,9 +181,10 @@ def run_build_joint(
     # only one output
     # must have multiple seqspecs and the technology string must be the same for both ie bc umi must be in the same location for all
 
-    return run_build_joint_single(
+    run_build_joint_single(
         modalities[0], fastqs, seqspecs, fasta, gtf, feature_barcodes, outputs[0]
     )
+    return
 
 
 def run_build_joint_single(
