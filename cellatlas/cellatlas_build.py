@@ -167,11 +167,12 @@ def run_build_independent_multiple_sm(
     feature_barcodes: str,
     outputs: List[str],
 ):
-    for spec, o in zip(seqspecs, outputs):
+    for seqspec, o in zip(seqspecs, outputs):
+        spec = load_spec(seqspec)
         found = region_ids_in_spec(
             spec, modality, [os.path.basename(f) for f in fastqs]
         )
-        run_build_single(modality, found, spec, fasta, gtf, feature_barcodes, o)
+        run_build_single(modality, found, seqspec, fasta, gtf, feature_barcodes, o)
     return
 
 
