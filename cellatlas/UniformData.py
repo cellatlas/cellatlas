@@ -50,9 +50,8 @@ class UniformData:
         fqs = [f for f in self.all_fastqs if os.path.basename(f) in relevant_fqs]
         self.spec_feature_fastqs = fqs
 
-        self.x_string = run_index(
-            self.seqspec, self.modality, self.spec_all_fastqs, fmt="kb"
-        )
+        # note the use of rids_in_spec here, which is the same as the rids_in_spec above
+        self.x_string = run_index(self.seqspec, self.modality, rids_in_spec, fmt="kb")
 
         self.fasta = fasta
         self.gtf = gtf
