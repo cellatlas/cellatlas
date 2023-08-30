@@ -70,9 +70,9 @@ def setup_build_args(parser):
         default=None,
         nargs="+",
     )
-    # subparser.add_argument(
-    #     "--joint", help="Joint quantification", action="store_true", default=False
-    # )
+    subparser.add_argument(
+        "--joint", help="Joint quantification", action="store_true", default=False
+    )
 
     return subparser
 
@@ -86,6 +86,7 @@ def validate_build_args(parser, args):
     modalities = args.m
     seqspecs = args.s
     outputs = args.o
+    joint = args.joint
 
     run_build = run_build_independent
 
@@ -135,6 +136,7 @@ def run_build_independent(
         )
     # Case 2, O,M,S: (1, >1, >1)
     elif len(set(modalities)) == 1 and len(outputs) == len(seqspecs) > 1:
+        # manage atac case where the references are built jointly but the quantification is done separately
         return run_build_independent_multiple_sm(
             modalities[0], fastqs, seqspecs, fasta, gtf, feature_barcodes, outputs
         )
@@ -167,6 +169,12 @@ def run_build_independent_multiple_sm(
     feature_barcodes: str,
     outputs: List[str],
 ):
+    if modality.upper() == "ATAC":
+        for o in outputs:
+            run_build_single_joint_ref(
+                modality, fastqs, seqspecs, fasta, gtf, feature_barcodes, o
+            )
+        return
     for seqspec, o in zip(seqspecs, outputs):
         spec = load_spec(seqspec)
         found = region_ids_in_spec(
@@ -244,6 +252,42 @@ def run_build_single(
     call_time = datetime.now().strftime("%a %b %d %H:%M:%S %Y %Z")
 
     ref = run_build_ref(modality, fastqs, seqspec, fasta, gtf, feature_barcodes, output)
+    count = run_build_count(modality, fastqs, seqspec, output)
+
+    cmds = [
+        {"ref": ref},
+        {"count": count},
+    ]
+
+    run_json = {
+        "call": " ".join(sys.argv),
+        "start_time": call_time,
+        "fastqs": [{"file": f, "source": ""} for f in fastqs],
+        "seqspec": seqspec,
+        "genome_fasta": fasta,
+        "genome_gtf": gtf,
+        "commands": cmds,
+    }
+
+    with open(os.path.join(output, "cellatlas_info.json"), "w") as f:
+        print(json.dumps(run_json, indent=4), file=f)
+    return
+
+
+def run_build_single_joint_ref(
+    modality: str,
+    fastqs: List[str],
+    seqspec: List[str],
+    fasta: str,
+    gtf: str,
+    feature_barcodes: str,
+    output: str,
+):
+    call_time = datetime.now().strftime("%a %b %d %H:%M:%S %Y %Z")
+
+    ref = run_build_ref_joint(
+        modality, fastqs, seqspec, fasta, gtf, feature_barcodes, output
+    )
     count = run_build_count(modality, fastqs, seqspec, output)
 
     cmds = [
