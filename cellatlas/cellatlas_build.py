@@ -362,7 +362,10 @@ def run_build_count_joint(modality, fastqs, seqspec_fns, output):
         relevant_fqs = [rgn.parent_id for rgn in rgns]
         # get the paths from fastqs that match relevant_fqs
         fqs = [f for f in fastqs if os.path.basename(f) in relevant_fqs]
+        print(fqs)
+        print(modality)
         x_strings += run_index(seqspec, modality, fqs, fmt="kb")
+        print(x_strings)
         joined_fastqs += fqs
 
     x_string = x_strings[0]  # assumes the technology strings are the same
