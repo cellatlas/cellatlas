@@ -217,6 +217,8 @@ def run_build_joint_single(
         "genome_gtf": gtf,
         "commands": cmds,
     }
+    print(output)
+    print(cmds)
     with open(os.path.join(output, "cellatlas_info.json"), "w") as f:
         print(json.dumps(run_json, indent=4), file=f)
     return
