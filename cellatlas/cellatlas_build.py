@@ -370,11 +370,12 @@ def run_build_count_joint(modality, fastqs, seqspec_fns, output):
 
     x_string = x_strings[0]  # assumes the technology strings are the same
 
+    # for now assumes the onlists are the same
     onlist = run_onlist(
-        seqspec, modality, "barcode"
+        seqspec_fns[0], modality, "barcode"
     )  # assumes that the onlists are the same
     # get onlist path relative to seqspec_fn path
-    onlist = os.path.join(os.path.dirname(seqspec), onlist)
+    onlist = os.path.join(os.path.dirname(seqspec_fns[0]), onlist)
 
     COUNT = {
         "TAG": build_kb_count_kite,
