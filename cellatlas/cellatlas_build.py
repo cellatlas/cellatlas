@@ -82,22 +82,18 @@ def validate_build_args(parser, args):
     run_build = run_build_independent
 
     len(set(fastqs)) == len(fastqs) or parser.error("FASTQs must be unique")
-    print(modalities, len(set(modalities)))
-    print(outputs, len(outputs))
-    print(seqspecs, len(seqspecs))
 
     # Case 1, O,M,S: (1, 1, 1)
     if len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspecs) == 1:
         run_build = run_build_independent
     # Case 2, O,M,S: (>1, >1, 1)
-    elif len(set(modalities)) == 1 and len(outputs) > 1 and len(seqspecs) == 1:
+    elif len(set(modalities)) > 1 and len(outputs) > 1 and len(seqspecs) == 1:
         run_build = run_build_independent
     # Case 2, O,M,S: (1, >1, >1)
-    elif len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspecs) > 1:
+    elif len(set(modalities)) == 1 and len(outputs) > 1 and len(seqspecs) > 1:
         run_build = run_build_independent
     # Case 2, O,M,S: (1, 1, >1)
     elif len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspecs) > 1:
-        print("Joint quantification")
         run_build = run_build_joint
     else:
         raise Exception("Invalid input.")
@@ -221,8 +217,7 @@ def run_build_joint_single(
         "genome_gtf": gtf,
         "commands": cmds,
     }
-    print(output)
-    print(cmds)
+
     with open(os.path.join(output, "cellatlas_info.json"), "w") as f:
         print(json.dumps(run_json, indent=4), file=f)
     return
@@ -256,7 +251,7 @@ def run_build_single(
         "genome_gtf": gtf,
         "commands": cmds,
     }
-    # print(run_json)
+
     with open(os.path.join(output, "cellatlas_info.json"), "w") as f:
         print(json.dumps(run_json, indent=4), file=f)
     return
