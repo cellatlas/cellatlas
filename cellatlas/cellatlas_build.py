@@ -82,6 +82,9 @@ def validate_build_args(parser, args):
     run_build = run_build_independent
 
     len(set(fastqs)) == len(fastqs) or parser.error("FASTQs must be unique")
+    print(modalities)
+    print(outputs)
+    print(seqspecs)
 
     # Case 1, O,M,S: (1, 1, 1)
     if len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspecs) == 1:
