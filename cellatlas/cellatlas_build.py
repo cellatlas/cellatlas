@@ -200,19 +200,19 @@ def run_build_separate(udata: UniformData):
         ref = run_build_ref_joint(
             udata.modality,
             udata.all_feature_fastqs,
-            udata.seqspec,
             udata.fasta,
             udata.gtf,
             udata.feature_barcodes,
+            udata.output,
         )
     else:
         ref = run_build_ref(
             udata.modality,
             udata.spec_feature_fastqs,
-            udata.seqspec,
             udata.fasta,
             udata.gtf,
             udata.feature_barcodes,
+            udata.output,
         )
 
     count = run_build_count(
@@ -419,7 +419,7 @@ def build_kb_ref_snATAK(
 
 
 def build_kb_ref_snATAK_joint(
-    fastqs: List[List[str]], fasta, gtf, feature_barcodes, output
+    fastqs: List[List[str]], fasta: str, gtf: str, feature_barcodes: str, output: str
 ):
     # build minimap ref
     cmd = [f"minimap2 -d {os.path.join(output, 'ref.mmi')} {fasta}"]
