@@ -84,16 +84,16 @@ def validate_build_args(parser, args):
     len(set(fastqs)) == len(fastqs) or parser.error("FASTQs must be unique")
 
     # Case 1, O,M,S: (1, 1, 1)
-    if len(set(modalities)) == len(outputs) == len(seqspecs) == 1:
+    if len(set(modalities)) == 1 & len(outputs) == 1 & len(seqspecs) == 1:
         run_build = run_build_independent
     # Case 2, O,M,S: (>1, >1, 1)
-    elif len(set(modalities)) == len(outputs) > 1 & len(seqspecs) == 1:
+    elif len(set(modalities)) == 1 & len(outputs) > 1 & len(seqspecs) == 1:
         run_build = run_build_independent
     # Case 2, O,M,S: (1, >1, >1)
-    elif len(set(modalities)) == 1 & len(outputs) == len(seqspecs) > 1:
+    elif len(set(modalities)) == 1 & len(outputs) == 1 & len(seqspecs) > 1:
         run_build = run_build_independent
     # Case 2, O,M,S: (1, 1, >1)
-    elif len(set(modalities)) == len(outputs) == 1 & len(seqspecs) > 1:
+    elif len(set(modalities)) == 1 & len(outputs) == 1 & len(seqspecs) > 1:
         run_build = run_build_joint
     else:
         raise Exception("Invalid input.")
