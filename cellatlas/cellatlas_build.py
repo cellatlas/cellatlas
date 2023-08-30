@@ -372,7 +372,7 @@ def run_build_count_joint(modality, fastqs, seqspec_fns, output):
 
     # for now assumes the onlists are the same
     onlist = run_onlist(
-        seqspec_fns[0], modality, "barcode"
+        load_spec(seqspec_fns[0]), modality, "barcode"
     )  # assumes that the onlists are the same
     # get onlist path relative to seqspec_fn path
     onlist = os.path.join(os.path.dirname(seqspec_fns[0]), onlist)
