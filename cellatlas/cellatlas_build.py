@@ -94,6 +94,7 @@ def validate_build_args(parser, args):
         run_build = run_build_independent
     # Case 2, O,M,S: (1, 1, >1)
     elif len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspecs) > 1:
+        print("Joint quantification")
         run_build = run_build_joint
     else:
         raise Exception("Invalid input.")
