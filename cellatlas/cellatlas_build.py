@@ -8,6 +8,14 @@ from seqspec.seqspec_index import run_index
 from seqspec.utils import load_spec, region_ids_in_spec
 from seqspec.seqspec_find import run_find_by_type
 
+MOD2FEATURE = {
+    "TAG": "tags",
+    "PROTEIN": "protein",
+    "ATAC": "gDNA",
+    "RNA": "cDNA",
+    "CRISPR": "gRNA",
+}
+
 
 def setup_build_args(parser):
     subparser = parser.add_parser(
@@ -267,13 +275,7 @@ def run_build_ref_joint(
     output: str,
 ):
     specs = [load_spec(ss) for ss in seqspecs]
-    MOD2FEATURE = {
-        "TAG": "tags",
-        "PROTEIN": "tags",
-        "ATAC": "gDNA",
-        "RNA": "cDNA",
-        "CRISPR": "gRNA",
-    }
+
     REF = {
         "TAG": build_kb_ref_kite_joint,
         "PROTEIN": build_kb_ref_kite_joint,
@@ -300,13 +302,6 @@ def run_build_ref_joint(
 
 def run_build_ref(modality, fastqs, seqspec_fn, fasta, gtf, feature_barcodes, output):
     spec = load_spec(seqspec_fn)
-    MOD2FEATURE = {
-        "TAG": "tags",
-        "PROTEIN": "protein",
-        "ATAC": "gDNA",
-        "RNA": "cDNA",
-        "CRISPR": "gRNA",
-    }
 
     # search the modality, and the feature type associated with the modality to get the fastq file names from the region_id
     rgns = run_find_by_type(spec, modality, MOD2FEATURE.get(modality.upper(), ""))
@@ -355,13 +350,6 @@ def run_build_count_joint(modality, fastqs, seqspec_fns, output):
     # In the future TODO check that the technology strings match
     # For now assume that the onlist files match
     # In the future TODO check that the onlist files match
-    MOD2FEATURE = {
-        "TAG": "tags",
-        "PROTEIN": "tags",
-        "ATAC": "gDNA",
-        "RNA": "cDNA",
-        "CRISPR": "gRNA",
-    }
 
     x_strings = []
     joined_fastqs = []
