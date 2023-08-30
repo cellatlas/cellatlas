@@ -364,7 +364,7 @@ def run_build_count_joint(modality, fastqs, seqspec_fns, output):
         fqs = [f for f in fastqs if os.path.basename(f) in relevant_fqs]
         print(fqs)
         print(modality)
-        x_strings += run_index(seqspec, modality, relevant_fqs, fmt="kb")
+        x_strings += [run_index(seqspec, modality, relevant_fqs, fmt="kb")]
         print(x_strings)
         joined_fastqs += fqs
 
