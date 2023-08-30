@@ -35,16 +35,19 @@ class UniformData:
         self.output = output
         self.all_fastqs = fastqs
         self.all_feature_fastqs = all_feature_fastqs
-        self.spec_all_fastqs = region_ids_in_spec(
+        rids_in_spec = region_ids_in_spec(
             self.seqspec, self.modality, [os.path.basename(i) for i in self.all_fastqs]
         )
+        self.spec_all_fastqs = [
+            f for f in self.all_fastqs if os.path.basename(f) in rids_in_spec
+        ]
 
         # filter the fastqs to feature fastqs (the type being feature associated with the modality)
         rgns = run_find_by_type(
-            self.seqspec, self.modality, MOD2FEATURE.get(modality.upper(), "")
+            self.seqspec, self.modality, MOD2FEATURE.get(self.modality.upper(), "")
         )
         relevant_fqs = [rgn.parent_id for rgn in rgns]
-        fqs = [f for f in fastqs if os.path.basename(f) in relevant_fqs]
+        fqs = [f for f in self.all_fastqs if os.path.basename(f) in relevant_fqs]
         self.spec_feature_fastqs = fqs
 
         self.x_string = run_index(

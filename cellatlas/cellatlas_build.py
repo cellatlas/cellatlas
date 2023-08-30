@@ -85,17 +85,17 @@ def validate_build_args(parser, args):
     feature_barcodes = args.fb
 
     modalities = args.m
-    seqspecs = args.s
+    seqspec_fns = args.s
     outputs = args.o
     joint = args.joint
 
     len(set(fastqs)) == len(fastqs) or parser.error("FASTQs must be unique")
 
     # Case 1, O,M,S: (1, 1, 1)
-    if len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspecs) == 1:
+    if len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspec_fns) == 1:
         udatas = [
             UniformData(
-                seqspecs[0],
+                seqspec_fns[0],
                 modalities[0],
                 fastqs,
                 fasta,
@@ -107,12 +107,12 @@ def validate_build_args(parser, args):
         multimodal = False
         joint = False
     # Case 2, O,M,S: (>1, >1, 1)
-    elif len(set(modalities)) > 1 and len(outputs) > 1 and len(seqspecs) == 1:
+    elif len(set(modalities)) > 1 and len(outputs) > 1 and len(seqspec_fns) == 1:
         udatas = []
         for o, m in zip(outputs, modalities):
             udatas.append(
                 UniformData(
-                    seqspecs[0],
+                    seqspec_fns[0],
                     m,
                     fastqs,
                     fasta,
@@ -124,9 +124,9 @@ def validate_build_args(parser, args):
         multimodal = True
         joint = False
     # Case 2, O,M,S: (1, >1, >1)
-    elif len(set(modalities)) == 1 and len(outputs) > 1 and len(seqspecs) > 1:
+    elif len(set(modalities)) == 1 and len(outputs) > 1 and len(seqspec_fns) > 1:
         udatas = []
-        for o, s in zip(outputs, seqspecs):
+        for o, s in zip(outputs, seqspec_fns):
             udatas.append(
                 UniformData(
                     s,
@@ -141,9 +141,9 @@ def validate_build_args(parser, args):
         multimodal = False
         joint = False
     # Case 2, O,M,S: (1, 1, >1)
-    elif len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspecs) > 1:
+    elif len(set(modalities)) == 1 and len(outputs) == 1 and len(seqspec_fns) > 1:
         udatas = []
-        for s in seqspecs:
+        for s in seqspec_fns:
             udatas.append(
                 UniformData(
                     s,
