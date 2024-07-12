@@ -17,8 +17,8 @@ project:
     - file: docs/QC_META.md
     - file: docs/QC_READS.md
     - file: docs/PREPROCESS_READS.md
-    - file: docs/QC_MAT.md
-    - file: docs/PREPROCESS_MAT.md
+    - file: docs/QC_MAT.ipynb
+    - file: docs/PREPROCESS_MAT.ipynb
     - file: docs/TOOLS.md
       # children:
       #   - title: Atac 10xatac
@@ -26,7 +26,7 @@ project:
       #       - file: examples/atac-10xatac/preprocess.ipynb
       #       - file: examples/atac-10xatac/qc.ipynb
       #   - title: Atac 10xmultiome
-      #     children:
+      #     children: 
       #       - file: examples/atac-10xmultiome/preprocess.ipynb
       #       - file: examples/atac-10xmultiome/qc.ipynb
       #   - title: Crispr 10xcrispr
